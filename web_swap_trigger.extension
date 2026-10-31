@@ -1,0 +1,18 @@
+# A test-only web swap trigger (the manual-reload seam): after N frames (the
+# CRUX_SWAP_AFTER env var), it calls the hybrid host's public swap entry
+# (AppHostHotSwapApp) to hot-swap the app to its new version. The native
+# equivalent is the file watcher + the reloader (a change fact); web has no
+# file watcher in Phase 1, so the trigger is an explicit frame count.
+#
+# The require names the CONCRETE host flavor (app_host_hybrid) for the
+# CMake-only boundary (the include path + the link edge for AppHostHotSwapApp;
+# the host serves no registry struct), mirroring app_reloader. A require named
+# app_host_hybrid resolves only when the cell's host IS the hybrid flavor.
+format_version = 1
+name   = "web_swap_trigger"
+kind   = "standalone"
+version        = "1.0.0"
+requires = [
+  { package = "logging", window = "1.1.0" },
+  { package = "app_host_hybrid", window = "2.0.0" }
+]
